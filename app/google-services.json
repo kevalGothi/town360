@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "375348727213",
+    "project_id": "town360-a9b74",
+    "storage_bucket": "town360-a9b74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375348727213:android:ce3b1d76acc768c779a524",
+        "android_client_info": {
+          "package_name": "com.example.town360"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxCNtF4xqmgCspa9pFm1G--DmiwwnUm2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

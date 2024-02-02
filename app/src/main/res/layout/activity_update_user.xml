@@ -1,0 +1,133 @@
+<!-- res/layout/activity_user_update.xml -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/gradient_background"
+        android:layout_marginTop="25dp"
+        android:padding="16dp">
+
+        <!-- ImageView to display selected image -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgUserUpdate"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="48dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:layout_gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/black"/>
+
+        <!-- Image Selector Button -->
+        <Button
+            android:id="@+id/btnSelectImageUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Select Image"/>
+
+        <!-- Name EditText -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etNameContainerUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNameUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Number EditText -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etNumberContainerUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Number">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNumberUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:background="@drawable/btn"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!-- Details EditText -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etDetailsContainerUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Details">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDetailsUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <!-- Display Job Details -->
+            <TextView
+                android:id="@+id/tvJobDetailsUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_gravity="center"
+                android:text="Job: "
+                android:textSize="26dp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvJobUpdate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="Job"
+                android:textSize="26dp"
+                android:textStyle="bold"
+                android:background="@drawable/btn" />
+
+            <!-- Job EditText -->
+
+        </LinearLayout>
+
+        <!-- Update User Button -->
+        <Button
+            android:id="@+id/btnUpdateUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Update User"/>
+
+    </LinearLayout>
+
+</ScrollView>
