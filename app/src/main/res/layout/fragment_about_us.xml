@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="550dp"
     android:layout_marginStart="35dp"
     android:layout_marginTop="50dp"
     android:layout_marginBottom="10dp"
@@ -16,33 +16,33 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userImageView"
-        android:layout_width="161dp"
-        android:layout_height="172dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:src="@drawable/logo"
         app:civ_border_color="@color/black"
         app:civ_border_width="2dp"
         app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.307"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="323dp"
-        android:layout_height="165dp"
+        android:layout_width="261dp"
+        android:layout_height="192dp"
         android:layout_margin="10dp"
-        android:text="Welcome to Town360 – a platform dedicated to showcasing and connecting local services and businesses! We are a team of passionate individuals committed to fostering community growth and supporting local ventures."
+        android:text="\nWelcome to Town360 \n A platform dedicated to showcasing and connecting local services and businesses! We are a team of passionate individuals committed to fostering community growth   and supporting local ventures."
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.476" />
+        app:layout_constraintTop_toTopOf="@+id/userImageView"
+        app:layout_constraintVertical_bias="0.467" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/callButton1"
@@ -56,28 +56,26 @@
         app:iconPadding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userImageView"
-        app:layout_constraintVertical_bias="0.69"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintVertical_bias="0.272"
         app:strokeColor="@color/black"
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/openInMapButton"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_width="166dp"
+        android:layout_height="55dp"
         android:text="Whatsapp Us"
         app:backgroundTint="#09FF00"
         app:icon="@drawable/w"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/userImageView"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/userImageView"
         app:layout_constraintTop_toBottomOf="@+id/callButton1"
-        app:layout_constraintVertical_bias="0.281"
+        app:layout_constraintVertical_bias="0.454"
         app:strokeColor="@color/black"
         tools:ignore="MissingConstraints" />
 

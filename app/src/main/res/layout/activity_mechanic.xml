@@ -12,19 +12,21 @@
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".khedut_mitra">
+        tools:context=".mechanic">
 
         <GridView
             android:id="@+id/gridView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="00dp"
-            android:columnWidth="120dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:columnWidth="10dp"
             android:gravity="center"
-            android:horizontalSpacing="60dp"
-            android:numColumns="auto_fit"
-            android:verticalSpacing="16dp" />
+            android:numColumns="2"
+            android:verticalSpacing="6dp" />
 
     </RelativeLayout>
 
