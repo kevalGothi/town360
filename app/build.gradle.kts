@@ -58,6 +58,8 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-firestore:24.0.1")
+
 
     implementation ("androidx.cardview:cardview:1.0.0")
 

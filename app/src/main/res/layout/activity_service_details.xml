@@ -1,32 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- activity_service_details.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragmentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    tools:context=".ServiceDetailsActivity">
 
-    <!-- Your existing RelativeLayout content here -->
+
+    <!-- Service Name -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/serviceNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <GridView
-            android:id="@+id/gridView"
+            android:id="@+id/gridView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="68dp"
+            android:layout_marginEnd="20dp"
             android:columnWidth="120dp"
-            android:layout_marginTop="10dp"
             android:gravity="center"
             android:horizontalSpacing="6dp"
-            android:numColumns="3"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:numColumns="2"
             android:verticalSpacing="16dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAddService"
+            android:id="@+id/fabAddService1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -42,4 +53,9 @@
 
     </RelativeLayout>
 
-</FrameLayout>
+
+
+
+    <!-- Add more UI components as needed -->
+
+</RelativeLayout>

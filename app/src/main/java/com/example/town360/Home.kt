@@ -1,76 +1,173 @@
 package com.example.town360
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.GridView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.*
 
 class Home : Fragment() {
 
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var gridView: GridView
+    private lateinit var fabAddService: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        // Move GridView setup to onViewCreated
+        gridView = view.findViewById(R.id.gridView)
+        fabAddService = view.findViewById(R.id.fabAddService)
+
+        setupFab()
+
+        // Register for context menu for long-press
+        registerForContextMenu(gridView)
+
         return view
     }
 
-    // Move GridView setup to onViewCreated
+    private fun setupFab() {
+        fabAddService.setOnClickListener {
+            // Handle FAB click
+            navigateToAddService()
+        }
+    }
+
+    private fun navigateToAddService() {
+        val intent = Intent(requireContext(), AddServiceActivity::class.java)
+        startActivity(intent)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val gridView: GridView = view.findViewById(R.id.gridView)
+        // Fetch service data from Firebase
+        val databaseReference = FirebaseDatabase.getInstance().reference.child("services")
+        val services = mutableListOf<Service>()
 
-        val dashboardItems = listOf(
-            DashboardItem(R.drawable.farmer, "ખેતી"),
-            DashboardItem(R.drawable.shopping, "ખરીદી"),
-            DashboardItem(R.drawable.gov, "સરકારી કાર્યાલય"),
-            DashboardItem(R.drawable.rest,"હોટેલ"),
-            DashboardItem(R.drawable.handyman, "કારીગરો"),
-            DashboardItem(R.drawable.mechanic, "ગાડી રિપેરિંગ"),
-            DashboardItem(R.drawable.repairservices, "ટ્રેક્ટર રિપેરિંગ"),
-            DashboardItem(R.drawable.bike, "બાઇક રિપેરિંગ"),
-            DashboardItem(R.drawable.prop, "સ્થાવર મિલકત"),
-            DashboardItem(R.drawable.housebuy, "મકાન"),
-            DashboardItem(R.drawable.homerent, "ભાડે મકાન"),
-            DashboardItem(R.drawable.vegfruit, "શાક ભાજી"),
-            DashboardItem(R.drawable.school, "સ્કૂલ"),
-            DashboardItem(R.drawable.classes, "ક્લાસ્સ"),
-            DashboardItem(R.drawable.courier, "કૂરિયાર"),
-            // Add more items as needed
-        )
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                services.clear()
+                for (childSnapshot in snapshot.children) {
+                    val service = childSnapshot.getValue(Service::class.java)
+                    service?.let { services.add(it) }
+                }
 
-        val adapter = DashboardAdapter(requireContext(), dashboardItems)
-        gridView.adapter = adapter
+                try {
+                    // Update the GridView with the new data
+                    val adapter = ServiceAdapter(requireContext(), services)
+                    gridView.adapter = adapter
+
+                    // Set item click listener
+                    gridView.setOnItemClickListener { _, _, position, _ ->
+                        // Handle item click, if needed
+                        val selectedService = services[position]
+                        if (!selectedService.hasSubService) {
+                            navigateToHealth(selectedService)
+                        } else {
+                            navigateToServiceDetails(selectedService)
+                        }
+                    }
+                } catch (e: Exception) {
+                    if (isAdded) { // Check if the fragment is added before showing the toast
+                        showToast("Error updating UI: ${e.message}")
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                if (isAdded) { // Check if the fragment is added before showing the toast
+                    showToast("Database error: ${error.message}")
+                }
+            }
+        })
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Home().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun navigateToHealth(selectedService: Service) {
+        val intent = Intent(requireContext(), Health::class.java).apply {
+            putExtra("ITEM_NAME", selectedService.name)
+            // Add more data as needed
+        }
+        startActivity(intent)
+    }
+
+    private fun navigateToServiceDetails(selectedService: Service) {
+        val intent = Intent(requireContext(), ServiceDetailsActivity::class.java).apply {
+            putExtra("SERVICE_NAME", selectedService.name)
+            putExtra("SERVICE_IMAGE", selectedService.image)
+            // Add more data as needed
+        }
+        startActivity(intent)
+    }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        if (v.id == R.id.gridView) {
+            requireActivity().menuInflater.inflate(R.menu.context_menu, menu)
+        }
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+
+        // Assuming you have a Service model in your adapter
+        val selectedService = gridView.adapter.getItem(info.position) as Service
+
+        when (item.itemId) {
+
+            R.id.action_delete -> {
+                showDeleteConfirmationDialog(selectedService)
+                return true
+            }
+            else -> return super.onContextItemSelected(item)
+        }
+    }
+
+   
+
+    private fun showDeleteConfirmationDialog(selectedService: Service) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Delete Service")
+            .setMessage("Are you sure you want to delete ${selectedService.name}?")
+            .setPositiveButton("Delete") { _, _ ->
+                deleteService(selectedService)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun deleteService(selectedService: Service) {
+        // Implement the logic to delete the service from Firebase
+        val databaseReference = FirebaseDatabase.getInstance().reference.child("services")
+        val serviceReference = databaseReference.child(selectedService.name)
+
+        serviceReference.removeValue()
+
+            .addOnSuccessListener {
+                showToast("Service deleted successfully")
+            }
+            .addOnFailureListener {
+                showToast("Error deleting service")
             }
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.GridView
 import androidx.fragment.app.Fragment
+import com.google.firebase.FirebaseApp
 import com.example.town360.databinding.ActivityHealthBinding
 import com.example.town360.databinding.ActivityMainBinding
 
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        FirebaseApp.initializeApp(this)
         replaceFragment(Home())
 
         binding.bottomNavigationView.setOnItemSelectedListener {
