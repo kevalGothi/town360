@@ -10,7 +10,6 @@ import androidx.fragment.app.DialogFragment
 
 class BottomSheetOptionsDialogFragment : DialogFragment() {
 
-    private var onUpdateClickListener: (() -> Unit)? = null
     private var onDeleteClickListener: (() -> Unit)? = null
 
     override fun onCreateView(
@@ -19,13 +18,9 @@ class BottomSheetOptionsDialogFragment : DialogFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.bottom_sheet_options, container, false)
 
-        val btnUpdate = view.findViewById<LinearLayout>(R.id.btnUpdate)
         val btnDelete = view.findViewById<LinearLayout>(R.id.btnDelete)
 
-        btnUpdate.setOnClickListener {
-            onUpdateClickListener?.invoke()
-            dismiss()
-        }
+
 
         btnDelete.setOnClickListener {
             onDeleteClickListener?.invoke()
@@ -35,9 +30,7 @@ class BottomSheetOptionsDialogFragment : DialogFragment() {
         return view
     }
 
-    fun setOnUpdateClickListener(listener: () -> Unit) {
-        onUpdateClickListener = listener
-    }
+
 
     fun setOnDeleteClickListener(listener: () -> Unit) {
         onDeleteClickListener = listener

@@ -16,6 +16,8 @@ class EmergencyAdapter(private val context: Context, private val items: List<Das
         Health::class.java,
         Health::class.java,
         Health::class.java,
+        Health::class.java,
+        Health::class.java,
         // Add more activities as needed
     )
 

@@ -1,7 +1,7 @@
 package com.example.town360
-
-import android.content.DialogInterface
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.LayoutInflater
@@ -32,6 +32,10 @@ class Home : Fragment() {
 
         setupFab()
 
+        if (!isInternetAvailable()) {
+            showToast("Internet not available")
+        }
+
         // Register for context menu for long-press
         registerForContextMenu(gridView)
 
@@ -40,9 +44,20 @@ class Home : Fragment() {
 
     private fun setupFab() {
         fabAddService.setOnClickListener {
-            // Handle FAB click
-            navigateToAddService()
+            // Check for internet connectivity before navigating to AddServiceActivity
+            if (isInternetAvailable()) {
+                navigateToAddService()
+            } else {
+                showToast("Internet not available")
+            }
         }
+    }
+
+    private fun isInternetAvailable(): Boolean {
+        val connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 
     private fun navigateToAddService() {
@@ -143,8 +158,6 @@ class Home : Fragment() {
         }
     }
 
-   
-
     private fun showDeleteConfirmationDialog(selectedService: Service) {
         AlertDialog.Builder(requireContext())
             .setTitle("Delete Service")
@@ -160,8 +173,11 @@ class Home : Fragment() {
         // Implement the logic to delete the service from Firebase
         val databaseReference = FirebaseDatabase.getInstance().reference.child("services")
         val serviceReference = databaseReference.child(selectedService.name)
+        val databaseRef = FirebaseDatabase.getInstance().reference.child("sub_services")
+        val serviceRef = databaseRef.child(selectedService.name)
 
         serviceReference.removeValue()
+        serviceRef.removeValue()
 
             .addOnSuccessListener {
                 showToast("Service deleted successfully")

@@ -94,23 +94,12 @@ class ServiceDetailsActivity : AppCompatActivity() {
 
     private fun showBottomSheetOptions(subService: SubService) {
         val bottomSheetFragment = BottomSheetOptionsDialogFragment()
-        bottomSheetFragment.setOnUpdateClickListener {
-            navigateToUpdateService(subService)
-        }
         bottomSheetFragment.setOnDeleteClickListener {
             showDeleteConfirmationDialog(subService)
         }
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
     }
 
-    private fun navigateToUpdateService(subService: SubService) {
-        val intent = Intent(this, UpdateServiceActivity::class.java).apply {
-            putExtra("SERVICE_NAME", parentServiceName)
-            putExtra("SUB_SERVICE_NAME", subService.name)
-            // Add more data as needed
-        }
-        startActivity(intent)
-    }
 
     private fun showDeleteConfirmationDialog(subService: SubService) {
         AlertDialog.Builder(this)

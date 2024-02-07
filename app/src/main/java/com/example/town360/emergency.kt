@@ -28,7 +28,7 @@ class emergency : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_emergency, container, false)
 
         // Move GridView setup to onViewCreated
         return view
@@ -45,6 +45,8 @@ class emergency : Fragment() {
             DashboardItem(R.drawable.hospital, "હોસ્પિટલ"),
             DashboardItem(R.drawable.med, "દવાઓ"),
             DashboardItem(R.drawable.ambulance, "એમ્બુલન્સ"),
+            DashboardItem(R.drawable.firestation, "ફાયર સ્ટેશન"),
+            DashboardItem(R.drawable.police, "પોલીસ"),
             // Add more items as needed
         )
 
